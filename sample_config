@@ -1,0 +1,55 @@
+# Set the default values for how the script will run
+
+# These values are divided into three sections based on what part of the process they affect: 
+
+# The first section deals with how the build script runs and interacts with the system you are running it on: the areas of the filesystem used, and output iso file
+# The second section deals with how the live system iso will be built: root password, ssh access, OS release to use, inclusion of packages for offline install
+# The third section deals with how the systems installed by the iso will be configured
+
+
+# Section 1: Build script behavior
+
+export runmode=interactive # Define how the script will run: interactive will prompt for values and walk through the options, non-interactive will run immediately using the default values or the values provided by the flags/options (string, set through opional script flag, valid options are interactive/noninteractive)
+
+export outputfile=debian_custom # Define the default name of the live system iso if not provided by user (String, set through script input, any valid filename)
+
+export workdir=/live-build # Set the directory that the script will work out of, this directory will be created by the script. The script will exit and fail if the directory already exists on the system (string, any valid filesystem path)
+
+export keep_workdir=no # Tells the script to not delete the working directory when finshed (string, set through opional script flag, valid options are yes/no/Yes/No/y/n/Y/N)
+
+export scriptdir="$(pwd)" # The directory containing the install script to be run by the live system iso, this defaults to your current directory and assumes that you are running the build script out the repo that also contains the install script (string, any valid filesystem path that contains the "install.sh" file)
+
+export iso_target=~ # The directory to copy the completed live system iso to when finished, will be created if it does not already exist (string, any valid filesystem path)
+
+
+# Section 2: Live system iso configuration
+
+export codename=bookworm # Set OS release to build the live system with (string, any valid release codename for a Debian based Linux distribution as used in /etc/apt/sources.list)
+
+export liverootpass=changeme # Set the root password for the live system to be built into an iso. The iso is configured to autologin as the root account to run the installation, so this will likely not need to be used unless opening a new tty (any string)
+
+export scriptpath="/root/debian-custom-iso-builder" # Set the filesystem path on the live system to run the install script from (string, any valid filesystem path)
+
+export offline=no # Configure the live system iso for offline installs. Downloads all packages needed for system installation to the live system iso and creates a local repository to install from instead of installing packages over the internet. Warning: using this option will greatly increase the iso size (string, set through opional script flag, valid options are yes/no/Yes/No/y/n/Y/N)
+
+export use_wifi=no # Configure the live system iso to connect to a wifi ssid for system installation. (string, set through opional script flag for setting wifi ssid to connect to, valid options are yes/no/Yes/No/y/n/Y/N)
+
+export wifi_ssid= # Provide the live system iso with a wifi ssid to connect to. (any string)
+
+export wifi_pass= # Provide the live system iso with a password for the wifi ssid to connect to. (any string)
+
+export hidden=no # Configure the live system iso to connect to a hidden wifi ssid. (string, set through opional script flag, valid options are yes/no/Yes/No/y/n/Y/N)
+
+export wifi_behavior=fallback # Configure how the live system iso decides to connect to wifi. With the 'fallback' option, the live system iso will only connect to the wifi ssid if network connectivity is not already available. With the 'always' option, the live system iso will always connect to the wifi ssid. (string, set through opional script flag, valid options are fallback/always)
+
+# Section 3: Installed system configuration
+
+export rootpass=changeme # Set the root password for the installed system by the built iso, this is set through the bootloader aguments and is viewable by anyone booting the iso. This can be edited and changed when booting the built iso for additional security (any string)
+
+export user=ansible # Set the account to be created for the installed system by the built iso, this is set through the bootloader aguments and is viewable by anyone booting the iso. This can be edited and changed when booting the built iso for additional security (string, valid Linux usernames only)
+
+export userpass=changeme # Set the user password for the installed system by the built iso, this is set through the bootloader aguments and is viewable by anyone booting the iso. This can be edited and changed when booting the built iso for additional security (any string)
+
+export user_sudo=no # Set elevated permissions for the account created for the installed system by the built iso, this is set through the bootloader aguments and is viewable by anyone booting the iso. This can be edited and changed when booting the built iso (string, valid options are yes/no/Yes/No/y/n/Y/N)
+
+export encryptionpass=changeme # Set the disk encryption password for the installed system by the built iso, this is set through the bootloader aguments and is viewable by anyone booting the iso. This can be edited and changed when booting the built iso for additional security (any string)
