@@ -31,7 +31,7 @@ export codename=bookworm # Set OS release to build the live system with (string,
 
 export liverootpass=changeme # Set the root password for the live system to be built into an iso. The iso is configured to autologin as the root account to run the installation, so this will likely not need to be used unless opening a new tty (any string)
 
-export scriptpath="/root/debian-custom-iso-builder" # Set the filesystem path on the live system to run the install script from (string, any valid filesystem path)
+export scriptpath="/root/debootstrap-custom-iso-builder" # Set the filesystem path on the live system to run the install script from (string, any valid filesystem path)
 
 export offline=no # Configure the live system iso for offline installs. Downloads all packages needed for system installation to the live system iso and creates a local repository to install from instead of installing packages over the internet. Warning: using this option will greatly increase the iso size (string, set through opional script flag, valid options are yes/no)
 

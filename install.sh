@@ -331,11 +331,11 @@ if [[ "$DISKLAYOUT" = "zfs_single"  ]]; then
 
 elif [[ "$DISKLAYOUT" = "zfs_mirror" ]]; then
     
-    "$SCRIPTPATHzfsMirrorDiskSetup.sh"
+    "$SCRIPTPATH/zfsMirrorDiskSetup.sh"
 
 elif [[ "$DISKLAYOUT" = "ext4_single" ]]; then
 
-    "$SCRIPTPATHext4SingleDiskSetup.sh"
+    "$SCRIPTPATH/ext4SingleDiskSetup.sh"
 
 else
     
