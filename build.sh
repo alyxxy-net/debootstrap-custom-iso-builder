@@ -541,7 +541,7 @@ LABEL linux
   MENU LABEL Debian 12 bookworm: Single disk ext4 root
   MENU DEFAULT
   KERNEL /live/vmlinuz
-  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bookwrom disklayout=ext4_single rootpass=$rootpass user=$user userpass=$userpass
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bookworm disklayout=ext4_single rootpass=$rootpass user=$user userpass=$userpass
 
 LABEL linux
   MENU LABEL Debian 12 bookworm: Single disk zfs root
@@ -566,6 +566,36 @@ LABEL linux
   MENU DEFAULT
   KERNEL /live/vmlinuz
   APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bookworm disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
+
+LABEL linux
+  MENU LABEL Debian 13 trixie: Single disk ext4 root
+  MENU DEFAULT
+  KERNEL /live/vmlinuz
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=trixie disklayout=ext4_single rootpass=$rootpass user=$user userpass=$userpass
+
+LABEL linux
+  MENU LABEL Debian 13 trixie: Single disk zfs root
+  MENU DEFAULT
+  KERNEL /live/vmlinuz
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=trixie disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass
+
+LABEL linux
+  MENU LABEL Debian 13 trixie: Single disk zfs root (encrypted)
+  MENU DEFAULT
+  KERNEL /live/vmlinuz
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=trixie disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
+
+LABEL linux
+  MENU LABEL Debian 13 trixie: Two disk zfs mirror root
+  MENU DEFAULT
+  KERNEL /live/vmlinuz
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=trixie disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass
+
+LABEL linux
+  MENU LABEL Debian 13 trixie: Two disk zfs mirror root (encrypted)
+  MENU DEFAULT
+  KERNEL /live/vmlinuz
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=trixie disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass  
 EOF
 
 cat << EOF > "$workingdir/staging/boot/grub/grub.cfg"
@@ -639,6 +669,35 @@ menuentry "Debian 12 bookworm: Two disk zfs mirror root" {
 menuentry "Debian 12 bookworm: Two disk zfs mirror root (encrypted)" {
     search --no-floppy --set=root --label DEBLIVE
     linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bookworm disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
+    initrd (\$root)/live/initrd
+
+menuentry "Debian 13 trixie: Single disk ext4 root" {
+    search --no-floppy --set=root --label DEBLIVE
+    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=trixie disklayout=ext4_single rootpass=$rootpass user=$user userpass=$userpass
+    initrd (\$root)/live/initrd
+}
+
+menuentry "Debian 13 trixie: Single disk zfs root" {
+    search --no-floppy --set=root --label DEBLIVE
+    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=trixie disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass
+    initrd (\$root)/live/initrd
+}
+
+menuentry "Debian 13 trixie: Single disk zfs root (encrypted)" {
+    search --no-floppy --set=root --label DEBLIVE
+    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=trixie disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
+    initrd (\$root)/live/initrd
+}
+
+menuentry "Debian 13 trixie: Two disk zfs mirror root" {
+    search --no-floppy --set=root --label DEBLIVE
+    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=trixie disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass
+    initrd (\$root)/live/initrd
+}
+
+menuentry "Debian 13 trixie: Two disk zfs mirror root (encrypted)" {
+    search --no-floppy --set=root --label DEBLIVE
+    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=trixie disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
     initrd (\$root)/live/initrd
 }
 EOF
