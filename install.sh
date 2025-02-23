@@ -231,7 +231,7 @@ userSetup(){
 
     chroot $TEMPMOUNT /bin/bash -c "mkdir /home/$USER/.ssh"
 
-    echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB3LG8oXQJM7GzoLt50rN630vdVTeGSpYE7f6JBPSMXp ansible-ssh-key' > $TEMPMOUNT/home/"$USER"/.ssh/authorized_keys
+    echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHZJoF/yy3MBgFpwvc15rIhZ1ZQ7XPm/l/8/2iXFo6sh ansible-login' > $TEMPMOUNT/home/"$USER"/.ssh/authorized_keys
 
     chroot $TEMPMOUNT /bin/bash -c "chown -R $USER:$USER /home/$USER"
 
