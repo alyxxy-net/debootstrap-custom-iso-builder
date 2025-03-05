@@ -508,36 +508,6 @@ MENU COLOR msg07        37;40   #90ffffff #a0000000 std
 MENU COLOR tabmsg       31;40   #30ffffff #00000000 std
 
 LABEL linux
-  MENU LABEL Debian 11 bullseye: Single disk ext4 root
-  MENU DEFAULT
-  KERNEL /live/vmlinuz
-  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bullseye disklayout=ext4_single rootpass=$rootpass user=$user userpass=$userpass
-
-LABEL linux
-  MENU LABEL Debian 11 bullseye: Single disk zfs root
-  MENU DEFAULT
-  KERNEL /live/vmlinuz
-  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bullseye disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass 
-  
-LABEL linux
-  MENU LABEL Debian 11 bullseye: Single disk zfs root (encrypted)
-  MENU DEFAULT
-  KERNEL /live/vmlinuz
-  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bullseye disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
-
-LABEL linux
-  MENU LABEL Debian 11 bullseye: Two disk zfs mirror root
-  MENU DEFAULT
-  KERNEL /live/vmlinuz
-  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bullseye disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass
-
-LABEL linux
-  MENU LABEL Debian 11 bullseye: Two disk zfs mirror root (encrypted)
-  MENU DEFAULT
-  KERNEL /live/vmlinuz
-  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bullseye disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
-
-LABEL linux
   MENU LABEL Debian 12 bookworm: Single disk ext4 root
   MENU DEFAULT
   KERNEL /live/vmlinuz
@@ -596,6 +566,36 @@ LABEL linux
   MENU DEFAULT
   KERNEL /live/vmlinuz
   APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=trixie disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass  
+
+LABEL linux
+  MENU LABEL Debian 11 bullseye: Single disk ext4 root
+  MENU DEFAULT
+  KERNEL /live/vmlinuz
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bullseye disklayout=ext4_single rootpass=$rootpass user=$user userpass=$userpass
+
+LABEL linux
+  MENU LABEL Debian 11 bullseye: Single disk zfs root
+  MENU DEFAULT
+  KERNEL /live/vmlinuz
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bullseye disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass 
+  
+LABEL linux
+  MENU LABEL Debian 11 bullseye: Single disk zfs root (encrypted)
+  MENU DEFAULT
+  KERNEL /live/vmlinuz
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bullseye disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
+
+LABEL linux
+  MENU LABEL Debian 11 bullseye: Two disk zfs mirror root
+  MENU DEFAULT
+  KERNEL /live/vmlinuz
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bullseye disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass
+
+LABEL linux
+  MENU LABEL Debian 11 bullseye: Two disk zfs mirror root (encrypted)
+  MENU DEFAULT
+  KERNEL /live/vmlinuz
+  APPEND initrd=/live/initrd boot=live scriptpath=$scriptpath bootmode=bios release=bullseye disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
 EOF
 
 cat << EOF > "$workingdir/staging/boot/grub/grub.cfg"
@@ -611,36 +611,6 @@ insmod iso9660
 
 insmod all_video
 insmod font
-
-menuentry "Debian 11 bullseye: Single disk ext4 root" {
-    search --no-floppy --set=root --label DEBLIVE
-    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bullseye disklayout=ext4_single rootpass=$rootpass user=$user userpass=$userpass
-    initrd (\$root)/live/initrd
-}
-
-menuentry "Debian 11 bullseye: Single disk zfs root" {
-    search --no-floppy --set=root --label DEBLIVE
-    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bullseye disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass
-    initrd (\$root)/live/initrd
-}
-
-menuentry "Debian 11 bullseye: Single disk zfs root (encrypted)" {
-    search --no-floppy --set=root --label DEBLIVE
-    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bullseye disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
-    initrd (\$root)/live/initrd
-}
-
-menuentry "Debian 11 bullseye: Two disk zfs mirror root" {
-    search --no-floppy --set=root --label DEBLIVE
-    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bullseye disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass
-    initrd (\$root)/live/initrd
-}
-
-menuentry "Debian 11 bullseye: Two disk zfs mirror root (encrypted)" {
-    search --no-floppy --set=root --label DEBLIVE
-    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bullseye disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
-    initrd (\$root)/live/initrd
-}
 
 menuentry "Debian 12 bookworm: Single disk ext4 root" {
     search --no-floppy --set=root --label DEBLIVE
@@ -698,6 +668,36 @@ menuentry "Debian 13 trixie: Two disk zfs mirror root" {
 menuentry "Debian 13 trixie: Two disk zfs mirror root (encrypted)" {
     search --no-floppy --set=root --label DEBLIVE
     linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=trixie disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
+    initrd (\$root)/live/initrd
+}
+
+menuentry "Debian 11 bullseye: Single disk ext4 root" {
+    search --no-floppy --set=root --label DEBLIVE
+    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bullseye disklayout=ext4_single rootpass=$rootpass user=$user userpass=$userpass
+    initrd (\$root)/live/initrd
+}
+
+menuentry "Debian 11 bullseye: Single disk zfs root" {
+    search --no-floppy --set=root --label DEBLIVE
+    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bullseye disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass
+    initrd (\$root)/live/initrd
+}
+
+menuentry "Debian 11 bullseye: Single disk zfs root (encrypted)" {
+    search --no-floppy --set=root --label DEBLIVE
+    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bullseye disklayout=zfs_single rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
+    initrd (\$root)/live/initrd
+}
+
+menuentry "Debian 11 bullseye: Two disk zfs mirror root" {
+    search --no-floppy --set=root --label DEBLIVE
+    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bullseye disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass
+    initrd (\$root)/live/initrd
+}
+
+menuentry "Debian 11 bullseye: Two disk zfs mirror root (encrypted)" {
+    search --no-floppy --set=root --label DEBLIVE
+    linux (\$root)/live/vmlinuz boot=live scriptpath=$scriptpath bootmode=efi release=bullseye disklayout=zfs_mirror rootpass=$rootpass user=$user userpass=$userpass encryptionpass=$encryptionpass
     initrd (\$root)/live/initrd
 }
 EOF

@@ -31,11 +31,13 @@ sgdisk     -n2:0:0        -t2:BE00 "$SECONDDISK"
 sleep 3    
 
 if [ -n "$ENCRYPTIONPASS" ]; then
+    echo "Creating encrypted mirror zpool"
     mkdir -p $KEY_PATH
     echo "$ENCRYPTIONPASS" > $KEY_PATH/$KEY_FILE        
     chmod 000 "$KEY_PATH/$KEY_FILE"
     echo "$ENCRYPTIONPASS" | zpool create -f -o ashift=12 -o autotrim=on -O acltype=posixacl -O compression=lz4 -O dnodesize=auto -O relatime=on -O xattr=sa -O normalization=formD -O canmount=off -O mountpoint=/ -O encryption=aes-256-gcm -O keylocation="file://$KEY_PATH/$KEY_FILE" -O keyformat=passphrase -R $TEMPMOUNT zroot mirror "$FIRSTDISK-part2" "$SECONDDISK-part2"
 elif [ -z "$ENCRYPTIONPASS" ]; then
+    echo "Creating unencrypted mirror zpool"
     zpool create -f -o ashift=12 -o autotrim=on -O acltype=posixacl -O compression=lz4 -O dnodesize=auto -O relatime=on -O xattr=sa -O normalization=formD -O canmount=off -O mountpoint=/ -R $TEMPMOUNT zroot mirror "$FIRSTDISK-part2" "$SECONDDISK-part2"
 else 
     echo "Not a supported encryption configuration, how did you get here?"
